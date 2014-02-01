@@ -21,27 +21,64 @@ class SiteController extends Controller
 		);
 	}
 
+
+    public function actionViewData1()
+	{
+        $Criteria = new CDbCriteria();
+        $Criteria->condition = "lhid = 1 or lhid=2 or lhid =3";
+		
+        $data =LocationHistory::model()->findAll($Criteria);
+	    $store;
+	    $i=0;
+	    foreach($data as $data_1) 
+         { 
+         	echo  "Lattitude:".$data_1['lattitude'];
+            $store[$i]['lattitude']=$data_1['lattitude'];
+            $store[$i]['lhid']=$data_1['lhid'];
+            $i++;         
+         }
+
+       //echo  $json_encode($store);
+        echo '-----';
+        echo "\n";
+    	echo $store[0]['lattitude'];
+    	$JsonObj=json_encode($store);
+    	echo "<br/>";
+    	var_dump($JsonObj);
+        
+        
+    }
+	
+	
+	
+	
+	
+	
 	public function actionViewData()
 	{
 
 		
         $Criteria = new CDbCriteria();
-        $Criteria->condition = "lhid = 1";
+        $Criteria->condition = "lhid = 1 or lhid=2 or lhid =3";
 		
         $data =LocationHistory::model()->findAll($Criteria);
 	    $store;
-	   foreach($data as $comments_1) 
-        { 
-         	echo  "LHID:".$comments_1['lhid'];
-            $store[0]=$comments_1['lhid'];
-        }
+	    $i=0;
+	    foreach($data as $data_1) 
+         { 
+         	echo  "Lattitude:".$data_1['lattitude'];
+            $store[$i++]=$data_1['lattitude'];
+            //$i++;         
+         }
 
        //echo  $json_encode($store);
-       
+        echo '-----';
+        echo "\n";
     	echo $store[0];
-	
-	
-	}
+    	$JsonObj=json_encode($store);
+    	echo "<br/>";
+    	var_dump($JsonObj);
+    }
 	
 	//Function for inserting datafrom json objects into databse through models.
 	/* 
